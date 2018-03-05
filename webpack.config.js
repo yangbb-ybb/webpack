@@ -45,6 +45,10 @@ module.exports ={
             // }
         ]
     },
+    devServer: {
+        historyApiFallback: true,
+        inline: true,
+    },
     plugins: [
         // https://github.com/ampedandwired/html-webpack-plugin
         new HtmlWebpackPlugin({
