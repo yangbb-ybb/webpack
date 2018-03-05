@@ -1,0 +1,43 @@
+{
+  "name": "webpack",
+  "version": "1.0.0",
+  "description": "自己测试",
+  "main": "main.js",
+  "scripts": {
+    "test": "npm run unit && npm run e2e",
+    "build": "webpack --config webpack.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yangbb-ybb/webpack.git"
+  },
+  "keywords": [
+    "配置",
+    "webpack"
+  ],
+  "author": "yangbb-ybb",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yangbb-ybb/webpack/issues"
+  },
+  "homepage": "https://github.com/yangbb-ybb/webpack#readme",
+  "devDependencies": {
+    "babel-core": "^6.22.1",
+    "babel-loader": "^7.1.3",
+    
+    "css-loader": "^0.28.10",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.0.4",
+    "url-loader": "^1.0.1",
+
+    "vue-loader": "^13.3.0",
+    "vue-template-compiler": "^2.5.2",
+
+    "webpack": "^3.6.0",
+    "webpack-dev-server": "^2.9.1"
+  },
+  "dependencies": {
+    "vue": "^2.5.2",
+    "vue-router": "^3.0.1"
+  }
+}
