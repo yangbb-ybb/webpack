@@ -92,6 +92,7 @@ export default {
     }
   }
 }
+console.log('hi,im ybb,this is helloWorld.vue 文件')
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

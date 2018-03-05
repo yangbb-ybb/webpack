@@ -10,8 +10,10 @@
 export default {
   name: 'App'
 }
+
+console.log('hi,im ybb,this is app.vue')
 </script>
-  console.log('hi,我是app.vue文件')
+
 <style>
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
