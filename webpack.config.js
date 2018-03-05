@@ -37,12 +37,12 @@ module.exports ={
             },
             //问题  页面挂载不出来  --->  页面加载需要new vue() 若按cli的写法 需要配置 reslove
             //嗯 js 没有加载出来 可能是需要loader  麻痹的 先缓缓线上loader再说
-            // {
-            //     test: /\.js$/,
-            //     loader: 'babel-loader',
-            //     //include: [resolve('src'), resolve('test'), resolve('node_modules/webpack-dev-server/client')], //需要使用babel的文件
-            //     exclude: /(node_modules|app-server.js)/,
-            // }
+            {
+                test: /\.js$/,
+                loader: 'babel-loader',
+                //include: [], //需要使用babel的文件
+                exclude: /(node_modules|app-server.js)/,
+            }
         ]
     },
     devServer: {

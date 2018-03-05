@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div>我是  app.vue文件  快刷新页面啊  hello</div>
+    <div>我是  app.vue文件  快刷新页面啊  hello world</div>
     <img src="./imgs/logo.png">
     <router-view/>
   </div>
