@@ -3,9 +3,9 @@
  * 肯定是不符合实际生产环境的配置需求的
  * **/
 //一些基础管理包
-const path = require('path');
+const path              = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');    //生成html模板 自动注入script标签
-// const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports ={
     entry: {
         app: './src/main.js'
@@ -42,12 +42,18 @@ module.exports ={
                 loader: 'babel-loader',
                 //include: [], //需要使用babel的文件
                 exclude: /(node_modules|app-server.js)/,
+            },
+            {
+                test: /\.css$/,
+                loader: "style-loader!css-loader!postcss-loader"
             }
         ]
     },
     devServer: {
         historyApiFallback: true,
         inline: true,
+        port: 8080,
+        contentBase: false,
     },
     plugins: [
         // https://github.com/ampedandwired/html-webpack-plugin
@@ -55,6 +61,13 @@ module.exports ={
             filename: 'index.html',
             template: 'index.html',
             inject: true
-        })
+        }),
+        new CopyWebpackPlugin([
+            {
+                from: path.resolve(__dirname, './static'),
+                to: 'static',
+                ignore: ['.*']
+            }
+        ])
     ]
 }

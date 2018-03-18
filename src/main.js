@@ -1,9 +1,10 @@
-console.log('111122',__dirname)
+//console.log('111122',__dirname)
 // The Vue build version to load with the `import` command
 
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
+//import style from "./style.css"
 //
 Vue.config.productionTip = false
 //

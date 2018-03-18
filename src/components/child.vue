@@ -1,20 +1,17 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
-    <Child v-bind:abc="abc"/>
-    <!--这个是子组件的-->
+    <h1>{{ abc.name }}</h1>
+    你也好1s
   </div>
 </template>
 
 <script>
-//加载 子组件
-import Child from './child.vue'
 export default {
-  name: 'HelloWorld',
-    components: {Child},
-    data () {
+  name: 'Child',
+
+  props: ['abc'],//假设是从父组件传递多来的数值
+  data () {
     return {
-      abc:{name:'abccssdd'},
       msg: 'Welcome to Your Vue.js App',
       style:'200'
     }
