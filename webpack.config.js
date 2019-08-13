@@ -3,19 +3,24 @@
  * 肯定是不符合实际生产环境的配置需求的
  * **/
 //一些基础管理包
-const path              = require('path');
+const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');    //生成html模板 自动注入script标签
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-module.exports ={
+const CopyWebpackPlugin = require('copy-webpack-plugin');    //复制static 里面的代码
+const VueLoaderPlugin = require('vue-loader/lib/plugin');    // css 文件使用 precss
+
+const ExtractTextPlugin = require("extract-text-webpack-plugin"); // 分包加载
+module.exports = {
     entry: {
         app: './src/main.js'
     },
     output: {
         path: path.resolve(__dirname, './dist'),
-        filename: '[name].js',
+        filename: '[name]-[hash:6].js',
     },
     resolve: {
         extensions: ['.js', '.vue', '.json'],
+        // 优化1 
+        //modules:[path.resolve(__dirname,'node_modules')],
         alias: {
             'vue$': 'vue/dist/vue.esm.js', // 'vue/dist/vue.common.js' for webpack 1
         }
@@ -25,7 +30,15 @@ module.exports ={
             //加载vue文件
             {
                 test: /\.vue$/,
-                loader: 'vue-loader'
+                loader: 'vue-loader',
+                options: {
+                    loaders: {
+                        css: ExtractTextPlugin.extract({
+                            use: 'css-loader',
+                            fallback: 'vue-style-loader' // <- 这是vue-loader的依赖，所以如果使用npm3，则不需要显式安装
+                        })
+                    }
+                }
             },
             //加载图片 文件 limit属性 <10000的直接被打包成base64
             {
@@ -56,6 +69,9 @@ module.exports ={
         contentBase: false,
     },
     plugins: [
+        new VueLoaderPlugin(),
+        new ExtractTextPlugin("style.css"),
+
         // https://github.com/ampedandwired/html-webpack-plugin
         new HtmlWebpackPlugin({
             filename: 'index.html',
