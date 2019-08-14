@@ -1,6 +1,6 @@
 > 项目说明
 ```bash
-    差不多是后台项目吧
+    差不多webpack 项目搭建
 ```
 > webpack配置相关
 ```bash
@@ -33,4 +33,15 @@
         增加js  多进程文件打包
     目前功能就完成这个样子吧，基本上webpack的 搭建原理也了解的差不多了 剩下的就是插件的运用了
     需要看的东西太多了，^-^
+```
+```bash
+    一些坑:
+    babel升级后必须使用新的库
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-transform-runtime": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    webpack4+ 不支持 extract-text-webpack-plugin 必须使用 @next
+    postcss 使用autoprefixed 需要配置 .postcssrc  @import等需要库支持
+    cross-env 需要写再最前面
+    extract-text-webpack-plugin配合使用 postcss
 ```
