@@ -13,6 +13,7 @@
 ``` bash
     热加载，webpack-dev-serve 监听
     postcss+autoprefixed完成css 前缀加载
+    extract-text-webpack-plugin 进行css 文件抽离
     babel
     html模板打包
     static静态文件复制
