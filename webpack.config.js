@@ -1,89 +1,95 @@
-/**
- * ps:  这个是最基础的webpack配置基础包
- * 肯定是不符合实际生产环境的配置需求的
- * **/
-//一些基础管理包
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');    //生成html模板 自动注入script标签
-const CopyWebpackPlugin = require('copy-webpack-plugin');    //复制static 里面的代码
-const VueLoaderPlugin = require('vue-loader/lib/plugin');    // css 文件使用 precss
-
-const ExtractTextPlugin = require("extract-text-webpack-plugin"); // 分包加载
+var path = require('path');
+var webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+// 分包 css 文件
+var ExtractTextPlugin = require('extract-text-webpack-plugin')
+// process.env.NODE_ENV 当前环境变量
+// webpack 配置项
 module.exports = {
-    entry: {
-        app: './src/main.js'
-    },
-    output: {
-        path: path.resolve(__dirname, './dist'),
-        filename: '[name]-[hash:6].js',
-    },
-    resolve: {
-        extensions: ['.js', '.vue', '.json'],
-        // 优化1 
-        //modules:[path.resolve(__dirname,'node_modules')],
-        alias: {
-            'vue$': 'vue/dist/vue.esm.js', // 'vue/dist/vue.common.js' for webpack 1
+  entry: './src/main.js',
+  output: {
+    path: path.resolve(__dirname, './dist'),
+    //publicPath: '/dist/',
+    filename: 'js/[name]-[hash:8].js',
+  },
+  resolve: {
+    extensions: ['.js', '.vue', '.json'],
+    alias: {
+      'vue$': 'vue/dist/vue.esm.js', // 'vue/dist/vue.common.js' for webpack 1
+    }
+  },
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/,//耗时
+      },
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader',
+        options: {
+          loaders: {
+            css: ExtractTextPlugin.extract({
+              use: 'css-loader',
+              fallback: 'vue-style-loader'
+            })
+          }
         }
-    },
-    module: {
-        rules: [
-            //加载vue文件
-            {
-                test: /\.vue$/,
-                loader: 'vue-loader',
-                options: {
-                    loaders: {
-                        css: ExtractTextPlugin.extract({
-                            use: 'css-loader',
-                            fallback: 'vue-style-loader' // <- 这是vue-loader的依赖，所以如果使用npm3，则不需要显式安装
-                        })
-                    }
-                }
-            },
-            //加载图片 文件 limit属性 <10000的直接被打包成base64
-            {
-                test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
-                loader: 'url-loader',
-                options: {
-                    limit: 10000
-                }
-            },
-            //问题  页面挂载不出来  --->  页面加载需要new vue() 若按cli的写法 需要配置 reslove
-            //嗯 js 没有加载出来 可能是需要loader  麻痹的 先缓缓线上loader再说
-            {
-                test: /\.js$/,
-                loader: 'babel-loader',
-                //include: [], //需要使用babel的文件
-                exclude: /(node_modules|app-server.js)/,
-            },
-            {
-                test: /\.css$/,
-                loader: "style-loader!css-loader!postcss-loader"
-            }
-        ]
-    },
-    devServer: {
-        historyApiFallback: true,
-        inline: true,
-        port: 8080,
-        contentBase: false,
-    },
-    plugins: [
-        new VueLoaderPlugin(),
-        new ExtractTextPlugin("style.css"),
-
-        // https://github.com/ampedandwired/html-webpack-plugin
-        new HtmlWebpackPlugin({
-            filename: 'index.html',
-            template: 'index.html',
-            inject: true
-        }),
-        new CopyWebpackPlugin([
-            {
-                from: path.resolve(__dirname, './static'),
-                to: 'static',
-                ignore: ['.*']
-            }
-        ])
+      },
+      {
+        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+        loader: 'url-loader',
+        options: {
+          limit: 10000
+        }
+      },
+      {
+        test: /\.css$/,
+        // use: [
+        //   { loader: 'vue-style-loader' },
+        //   {
+        //     loader: 'css-loader',
+        //     options: {
+        //       modules: true,
+        //     }
+        //   },
+        //   { loader: 'postcss-loader' }
+        // ]
+        // 配置 css loader 文件
+        loader: ExtractTextPlugin.extract({
+          //use: "css-loader!postcss-loader"
+          use: [
+            { loader: 'css-loader' },
+            { loader: 'postcss-loader' },
+          ]
+        })
+      }
     ]
-}
+  },
+  devServer: {
+    historyApiFallback: true,
+    overlay: true
+  },
+  plugins: [
+    // 模板html
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: 'index.html',
+      inject: true
+    }),
+    // vue-loader 伴生
+    new VueLoaderPlugin(),
+    // 复制 static文件夹
+    new CopyWebpackPlugin([
+      {
+        from: path.resolve(__dirname, './static'),
+        to: 'static',
+        ignore: ['.*']
+      }
+    ]),
+    new ExtractTextPlugin({ filename: 'css/[name].[hash:6].css', allChunks: true })
+  ]
+};

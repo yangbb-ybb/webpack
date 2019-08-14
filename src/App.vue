@@ -1,7 +1,8 @@
+    
 <template>
   <div id="app">
-    <div>我是 app.vue文件 快刷新页面啊 hello</div>
-    <img src="./imgs/logo.png" />
+    <div>111222221</div>
+    <!-- <img src="./imgs/p0001.jpg" /> -->
     <router-view />
   </div>
 </template>
@@ -10,7 +11,6 @@
 export default {
   name: "App"
 };
-
 console.log("hi,im ybb,this is app.vue");
 </script>
 
@@ -22,7 +22,11 @@ console.log("hi,im ybb,this is app.vue");
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
-  transform: translate(100px);
+}
+img {
+  width: 100px;
+  height: 100px;
   display: flex;
+  transform: translate(100px);
 }
 </style>

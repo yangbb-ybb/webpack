@@ -1,46 +1,32 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <Child v-bind:abc="abc"/>
-    <!--这个是子组件的-->
   </div>
 </template>
 
 <script>
-//加载 子组件
-import Child from './child.vue'
 export default {
-  name: 'HelloWorld',
-    components: {Child},
-    data () {
+  name: "HelloWorld",
+  data() {
     return {
-      abc:{name:'abccssdd'},
-      msg: 'Welcome to Your Vue.js App',
-      style:'200'
-    }
+      msg: "Welcome to Your Vue.js App",
+      style: "200"
+    };
   },
-  computed:{
-    getStyle:function(){
-        return 'width:'+this.style+'px'
-    }
-  },
-}
+  computed: {},
+  methods: {},
+  created() {
+    // 这里将进入vue的 环境变量
+  }
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1, h2 {
-  font-weight: normal;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
+h1 {
+  color: yellow;
+  display: flex;
+  transform: translate(100px);
+  background-image: url("../imgs/p0001.jpg");
 }
 </style>
