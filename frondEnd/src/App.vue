@@ -14,19 +14,16 @@
 </template>
 
 <script>
+import { getTest } from "./utils/request/requireList";
 export default {
   name: "App"
 };
 console.log("hi,im ybb,this is app.vue");
-//
-// new Promise(re => {
-//   re(12232);
-// }).then(console.log);
-// console.log("这是 一段测试代码");
-// let a = () => {
-//   console.log(2223);
-// };
-//a();
+// 测试代码 发起请求
+//this.
+getTest().then((res) => {
+  //console.log(res, 122321323);
+});
 </script>
 
 <style>

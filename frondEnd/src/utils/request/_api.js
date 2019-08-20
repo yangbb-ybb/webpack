@@ -1,5 +1,6 @@
 // 接口配置 文件
 export const BASE_URL = {
+  test:"/",// 测试
   root: 'https://test.api.bcsc.17dengji.com',
   h5: 'https://test.h5.bcsc.17dengji.com',
 }

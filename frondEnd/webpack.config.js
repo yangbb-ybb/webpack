@@ -7,6 +7,9 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 // 定义环境变量
 const DefinePlugin = require("webpack/lib/DefinePlugin");
+
+// 前后端 同构代码 必须使用的 插件
+const { VueLoaderPlugin } = require('vue-loader');
 // process.env.NODE_ENV 当前环境变量
 var args = require('minimist')(process.argv.slice(2));
 let mode = args.env;// 当前的环境
@@ -62,7 +65,7 @@ const config = {
               loader: 'css-loader',
               options: {
                 // modules: true,
-                minimize: true,
+                // minimize: true,
                 // sourceMap: false
               }
             },
@@ -78,7 +81,7 @@ const config = {
               loader: 'css-loader',
               options: {
                 // modules: true,
-                minimize: true,
+                // minimize: true,
                 // sourceMap:false
               }
             },
@@ -91,7 +94,7 @@ const config = {
       },
     ]
   },
-  devtool: mode === 'production'?'none':"inline-source-map", //"none"
+  devtool: mode === 'production' ? 'none' : "inline-source-map", //"none"
   devServer: {
     historyApiFallback: true,
     port: 8080,
@@ -100,7 +103,7 @@ const config = {
     },
     proxy: {// agent cross-domain interface
       "/api": {
-        target: "www.baiud.com/",
+        target: "http://localhost:3000/api",
         changeOrigin: true,
         pathRewrite: {
           "^/api": ""
@@ -113,6 +116,7 @@ const config = {
   },
 
   plugins: [
+    new VueLoaderPlugin(),
     // 模板html
     new HtmlWebpackPlugin({
       filename: 'index.html',
@@ -135,7 +139,7 @@ const config = {
       'process.env': {
         NODE_ENV: JSON.stringify(mode)
       }
-    })
+    }),
   ]
 };
 // 进行生产环境  需要加快打包速度 压缩代码

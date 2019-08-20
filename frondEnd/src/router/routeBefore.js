@@ -16,7 +16,7 @@ router.beforeEach(function (to, from, next) {
   // 动态 添加 路由文件（权限管理）
   // 首先 需要登录状态
   if ("access_token") {
-    console.log(router);
+    //console.log(router);
     // 根据权限 进行动态路由操作
     if (!flag) {
       flag = true;
