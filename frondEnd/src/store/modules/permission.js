@@ -1,13 +1,12 @@
 // 权限 相关，会根据用户的权限动态返回列聊
 export default {
   state: {
-    routers: constantRouterMap,
+    routers: "/test",
     addRouters: []
   },
   mutations: {
     SET_ROUTERS: (state, routers) => {
-      state.addRouters = routers
-      state.routers = constantRouterMap.concat(routers)
+
     }
   },
   actions: {

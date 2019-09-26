@@ -4,7 +4,7 @@ import Vue from 'vue'
 export default {
   state: {
     token: '',
-    name: '',
+    name: 'ybb',// Hi,Ybb 来打一场 愉快的 Dota
     welcome: '',
     avatar: '',
     roles: [],

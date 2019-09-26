@@ -1,15 +1,5 @@
 // 同步路由
 //import pageNotFound from "../pages/404.vue"
-export default [
-  {
-    path: '/',
-    name: 'index',
-    meta: {
-      title: '首页',
-      permission: 'PUBLIC'
-    }
-  },
-]
 export const notfound = {
   path: '*',
   name: 'n404',
@@ -28,6 +18,15 @@ export const asyncRouter = [
     component: () => import("../pages/charts"),
     meta: {
       title: '这个charts页面',
+      permission: 'G2'
+    }
+  },
+  {
+    path: '/goods',
+    name: 'goods',
+    component: () => import("../pages/goods"),
+    meta: {
+      title: '这个是虚拟列表页面',
       permission: 'G2'
     }
   },
@@ -54,3 +53,15 @@ export const asyncRouter = [
     }
   }
  */
+export default [
+  {
+    path: '/',
+    name: 'index',
+    meta: {
+      title: '首页',
+      permission: 'PUBLIC'
+    }
+  },
+  // ...asyncRouter,
+  // notfound
+]
